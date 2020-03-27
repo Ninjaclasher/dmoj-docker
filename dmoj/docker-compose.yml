@@ -44,8 +44,8 @@ services:
       - ./repo/:/site/
       - assets:/assets/
       - pdf:/pdf/
-    working_dir: /site
-    environment:
+    working_dir: /site/
+    environment: &site_environment
       - MYSQL_DATABASE=dmoj
       - MYSQL_USER=dmoj
       - MYSQL_PASSWORD=<password>
@@ -63,7 +63,8 @@ services:
     volumes:
       - ./logs/:/logs/
       - ./repo/:/site/
-    working_dir: /site
+    working_dir: /site/
+    environment: *site_environment
     networks: [site, db]
     depends_on: [base, db, redis]
   bridged:
@@ -76,7 +77,8 @@ services:
       - ./logs/:/logs/
       - ./problems/:/problems/
       - ./repo/:/site/
-    working_dir: /site
+    working_dir: /site/
+    environment: *site_environment
     networks: [site, nginx, db]
     ports:
       - 9999:9999
@@ -90,6 +92,7 @@ services:
     volumes:
       - ./repo/:/site/
     working_dir: /site
+    environment: *site_environment
     networks: [site, nginx]
   nginx:
     container_name: dmoj_nginx

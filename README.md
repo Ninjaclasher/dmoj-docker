@@ -42,7 +42,58 @@ $ docker-compose up -d
 
 ## Notes
 
-The `docker-compose.yml` configures Nginx to publish to port 80. If you have another nginx instance on your host machine, you may change the port and proxy pass instead.
+### Migrating
+As the DMOJ site is a Django app, you may need to migrate whenever you update. Running the following command should suffice:
+```sh
+$ docker-compose run site python3 manage.py migrate
+```
+
+### Loading The DMOJ's Fixtures
+The DMOJ comes with fixtures so that the initial install is not blank. They can be loaded with the following commands:
+```
+$ docker-compose run site python3 loaddata navbar
+$ docker-compose run site python3 loaddata language_small
+$ docker-compose run site python3 loaddata demo
+```
+
+### Managing Static Files
+Static files are built in a separate image than the site. If there are any changes to the static files, you will need to rebuild that image:
+```sh
+$ docker-compose build static
+```
+
+To update the static files in the other containers, you will need to repopulate the volume by recreating the volume:
+```sh
+$ docker-compose stop site nginx
+$ docker container rm dmoj_site_1 dmoj_nginx dmoj_static_1
+$ docker volume rm dmoj_assets
+$ docker-compose up -d nginx site static
+```
+
+Having a separate image for static files is useful when developing, as you do not need to need to rebuild the static files every time. If you do not need this flexibility, feel free to combine the static image with the site image.
+
+### Updating the site
+Updating various sections of the site requires different images to be rebuilt.
+
+If any prerequisites were modified, you will need to rebuild most of the images:
+```sh
+$ docker-compose build base static site celery bridged wsevent
+```
+If the static files are modified, read the section on [Managing Static Files](#managing-static-files).
+
+If the source code is modified, only some of the images will need to be rebuilt:
+```sh
+$ docker-compose build site celery bridged wsevent
+```
+
+Finally, remember to restart all containers whose images were rebuilt:
+```sh
+$ docker-compose up -d
+```
+
+### Multiple Nginx Instances
+
+The `docker-compose.yml` configures Nginx to publish to port 80. If you have another Nginx instance on your host machine, you may want to change the port and proxy pass instead.
 
 For example, a possible Nginx configuration file on your host machine would be:
 ```
