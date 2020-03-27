@@ -96,7 +96,7 @@ services:
     image: nginx:latest
     restart: always
     ports:
-      - 10080:80
+      - 80:80
     volumes:
       - assets:/assets/
       - pdf:/pdf/
