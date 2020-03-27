@@ -62,7 +62,7 @@ Static files are built in a separate image than the site. If there are any chang
 $ docker-compose build static
 ```
 
-To update the static files in the other containers, you will need to repopulate the volume by recreating the volume:
+To update the static files in the other containers, you will need to repopulate the volume by forcefully recreating the volume:
 ```sh
 $ docker-compose stop site nginx
 $ docker container rm dmoj_site_1 dmoj_nginx dmoj_static_1
@@ -70,15 +70,14 @@ $ docker volume rm dmoj_assets
 $ docker-compose up -d nginx site static
 ```
 
-Having a separate image for static files is useful when developing, as you do not need to need to rebuild the static files every time. If you do not need this flexibility, feel free to combine the static image with the site image.
+Having a separate image for static files is useful when developing, as you do not need to rebuild the static files every time. If you do not need this flexibility, feel free to combine the static image with the site image.
 
 ### Updating the site
 Updating various sections of the site requires different images to be rebuilt.
 
 If any prerequisites were modified, you will need to rebuild most of the images:
 ```sh
-$ docker-compose build base static site celery bridged wsevent
-$ docker-compose up -d base static site celery bridged wsevent
+$ docker-compose up -d --build base static site celery bridged wsevent
 ```
 If the static files are modified, read the section on [Managing Static Files](#managing-static-files).
 
