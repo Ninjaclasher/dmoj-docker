@@ -62,12 +62,12 @@ Static files are built in a separate image than the site. If there are any chang
 $ docker-compose build static
 ```
 
-To update the static files in the other containers, you will need to repopulate the volume by forcefully recreating the volume:
+To update the static files in the other containers, you will need to repopulate the volume by forcefully recreating the volume. A quick way to do this is:
 ```sh
 $ docker-compose stop site nginx
-$ docker container rm dmoj_site_1 dmoj_nginx dmoj_static_1
+$ docker-compose rm site nginx static
 $ docker volume rm dmoj_assets
-$ docker-compose up -d nginx site static
+$ docker-compose up -d
 ```
 
 Having a separate image for static files is useful when developing, as you do not need to rebuild the static files every time. If you do not need this flexibility, feel free to combine the static image with the site image.
