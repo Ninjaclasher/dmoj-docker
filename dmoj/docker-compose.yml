@@ -17,6 +17,13 @@ services:
     image: redis:buster
     restart: always
     networks: [site]
+  texoid:
+    build:
+      context: .
+      dockerfile: ./texoid/Dockerfile
+    image: dmoj-site-texoid
+    restart: unless-stopped
+    networks: [site]
   base:
     build:
       context: .
@@ -39,11 +46,12 @@ services:
     image: dmoj-site
     restart: unless-stopped
     volumes:
+      - assets:/assets/
+      - pdf:/pdf/
+      - cache:/cache/
       - ./logs/:/logs/
       - ./problems/:/problems/
       - ./repo/:/site/
-      - assets:/assets/
-      - pdf:/pdf/
     working_dir: /site/
     environment: &site_environment
       - MYSQL_DATABASE=dmoj
@@ -103,11 +111,11 @@ services:
     volumes:
       - assets:/assets/
       - pdf:/pdf/
+      - cache:/cache/
       - ./logs/:/logs/
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks: [nginx]
     depends_on: [site, wsevent]
-
 networks:
   site:
   db:
@@ -118,3 +126,4 @@ networks:
 volumes:
   assets:
   pdf:
+  cache:

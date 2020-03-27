@@ -216,6 +216,14 @@ DMOJ_PDF_PROBLEM_INTERNAL = 'pdf/pdfcache'
 NODEJS = '/usr/bin/node'
 PUPPETEER_MODULE = '/node_modules/puppeteer'
 
+############
+## Texoid ##
+############
+
+TEXOID_URL = 'http://texoid:8888'
+TEXOID_CACHE_ROOT = '/cache/texoid/'
+TEXOID_CACHE_URL = '//{host}/texoid/'.format(host=HOST)
+
 ## ======== Logging Settings ========
 # Documentation: https://docs.djangoproject.com/en/1.9/ref/settings/#logging
 #                https://docs.python.org/2/library/logging.config.html#logging-config-dictschema
