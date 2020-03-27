@@ -1,0 +1,3 @@
+[submodule "dmoj/repo"]
+	path = dmoj/repo
+	url = git@github.com:DMOJ/site

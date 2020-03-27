@@ -1,0 +1,117 @@
+version: '3.7'
+services:
+  db:
+    container_name: dmoj_mysql
+    image: mariadb
+    restart: always
+    volumes:
+      - ./database/:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=<password>
+      - MYSQL_DATABASE=dmoj
+      - MYSQL_USER=dmoj
+      - MYSQL_PASSWORD=<password>
+    networks: [db]
+  redis:
+    container_name: dmoj_redis
+    image: redis:buster
+    restart: always
+    networks: [site]
+  base:
+    build:
+      context: .
+      dockerfile: ./base/Dockerfile
+    image: dmoj-site-base
+    network_mode: none
+  static:
+    build:
+       context: .
+       dockerfile: ./static/Dockerfile
+    image: dmoj-site-static
+    volumes:
+      - assets:/assets/
+    network_mode: none
+    depends_on: [base]
+  site:
+    build:
+      context: .
+      dockerfile: ./site/Dockerfile
+    image: dmoj-site
+    restart: unless-stopped
+    volumes:
+      - ./logs/:/logs/
+      - ./problems/:/problems/
+      - ./repo/:/site/
+      - assets:/assets/
+      - pdf:/pdf/
+    working_dir: /site
+    environment:
+      - MYSQL_DATABASE=dmoj
+      - MYSQL_USER=dmoj
+      - MYSQL_PASSWORD=<password>
+      - HOST=<host>
+      - DEBUG=0
+      - SECRET_KEY=<secret key>
+    networks: [site, nginx, db]
+    depends_on: [base, static, db, redis]
+  celery:
+    build:
+      context: .
+      dockerfile: ./celery/Dockerfile
+    image: dmoj-celery
+    restart: unless-stopped
+    volumes:
+      - ./logs/:/logs/
+      - ./repo/:/site/
+    working_dir: /site
+    networks: [site, db]
+    depends_on: [base, db, redis]
+  bridged:
+    build:
+      context: .
+      dockerfile: ./bridged/Dockerfile
+    image: dmoj-bridged
+    restart: unless-stopped
+    volumes:
+      - ./logs/:/logs/
+      - ./problems/:/problems/
+      - ./repo/:/site/
+    working_dir: /site
+    networks: [site, nginx, db]
+    ports:
+      - 9999:9999
+    depends_on: [base, db, redis]
+  wsevent:
+    build:
+      context: .
+      dockerfile: ./wsevent/Dockerfile
+    image: dmoj-site-wsevent
+    restart: unless-stopped
+    volumes:
+      - ./repo/:/site/
+    working_dir: /site
+    networks: [site, nginx]
+  nginx:
+    container_name: dmoj_nginx
+    image: nginx:latest
+    restart: always
+    ports:
+      - 10080:80
+    volumes:
+      - assets:/assets/
+      - pdf:/pdf/
+      - ./logs/:/logs/
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks: [nginx]
+    depends_on: [site, wsevent]
+
+networks:
+  site:
+  db:
+  nginx:
+    ipam:
+      config:
+        - subnet: 172.25.0.0/16
+volumes:
+  assets:
+  pdf:
