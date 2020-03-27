@@ -24,6 +24,15 @@ services:
     image: dmoj-site-texoid
     restart: unless-stopped
     networks: [site]
+  mathoid:
+    build:
+      context: .
+      dockerfile: ./mathoid/Dockerfile
+    image: dmoj-site-mathoid
+    restart: unless-stopped
+    volumes:
+      - ./mathoid/config.yaml:/node_modules/mathoid/config.yaml
+    networks: [site]
   base:
     build:
       context: .

@@ -216,6 +216,14 @@ DMOJ_PDF_PROBLEM_INTERNAL = 'pdf/pdfcache'
 NODEJS = '/usr/bin/node'
 PUPPETEER_MODULE = '/node_modules/puppeteer'
 
+#############
+## Mathoid ##
+#############
+# Documentation: https://github.com/wikimedia/mathoid
+MATHOID_URL = 'http://mathoid:10044'
+MATHOID_CACHE_ROOT = '/cache/mathoid/'
+MATHOID_CACHE_URL = '//{host}/mathoid/'.format(host=HOST)
+
 ############
 ## Texoid ##
 ############

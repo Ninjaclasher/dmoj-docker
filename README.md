@@ -1,6 +1,6 @@
 # DMOJ Docker
 
-This repository contains the Docker files to run a clone of the [DMOJ site](https://github.com/DMOJ/online-judge). It does not configure any additional services, such as camo, mathoid, and texoid.
+This repository contains the Docker files to run a clone of the [DMOJ site](https://github.com/DMOJ/online-judge). It configures some additional services, such as mathoid and texoid.
 
 ## Installation
 
