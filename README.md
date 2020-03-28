@@ -72,7 +72,7 @@ $ docker-compose up -d
 
 Having a separate image for static files is useful when developing, as you do not need to rebuild the static files every time. If you do not need this flexibility, feel free to combine the static image with the site image.
 
-### Updating the site
+### Updating The Site
 Updating various sections of the site requires different images to be rebuilt.
 
 If any prerequisites were modified, you will need to rebuild most of the images:
