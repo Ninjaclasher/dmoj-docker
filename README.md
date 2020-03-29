@@ -10,7 +10,7 @@ Clone the repository:
 ```sh
 $ git clone https://github.com/Ninjaclasher/dmoj-docker
 $ cd dmoj-docker
-$ git submodule init
+$ git submodule init --recursive
 $ git submodule update
 ```
 
