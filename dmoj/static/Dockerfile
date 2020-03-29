@@ -3,7 +3,7 @@ FROM dmoj-site-base:latest
 COPY repo/ /site/
 WORKDIR /site/
 RUN mkdir /assets/
-RUN chmod +x make_style.sh && ./make_style.sh && python3 manage.py collectstatic --noinput && \
+RUN sh make_style.sh && python3 manage.py collectstatic --noinput && \
     python3 manage.py compilemessages && python3 manage.py compilejsi18n
 RUN cp -r resources /assets/ && \
     cp 502.html /assets/ && \
