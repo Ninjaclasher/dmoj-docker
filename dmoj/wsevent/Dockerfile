@@ -1,7 +1,5 @@
 FROM node:alpine
 
-ENV NODE_PATH /node_modules/
-WORKDIR /node_modules/
 RUN npm install qu ws simplesets
 
 EXPOSE 15100
