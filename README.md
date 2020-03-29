@@ -28,7 +28,7 @@ $ mkdir dmoj/problems/
 $ mkdir dmoj/database/
 ```
 
-Configure `dmoj/docker-compose.yml`. In particular, set the MYSQL passwords, the host, and the secret key. Feel free to configure the ports as well if required. Also, configure the `server_name` directive in `dmoj/nginx/conf.d/nginx.conf`.
+Configure the environment variables in the files in `dmoj/environment/`. In particular, set the MYSQL passwords in `mysql.env` and `mysql-admin.env`, and the host and secret key in `site.env`. Also, configure the `server_name` directive in `dmoj/nginx/conf.d/nginx.conf`.
 
 Finally, build the images:
 ```sh

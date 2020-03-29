@@ -6,11 +6,7 @@ services:
     restart: always
     volumes:
       - ./database/:/var/lib/mysql/
-    environment:
-      - MYSQL_ROOT_PASSWORD=<password>
-      - MYSQL_DATABASE=dmoj
-      - MYSQL_USER=dmoj
-      - MYSQL_PASSWORD=<password>
+    env_file: [environment/mysql.env, environment/mysql-admin.env]
     networks: [db]
   redis:
     container_name: dmoj_redis
@@ -62,13 +58,7 @@ services:
       - ./problems/:/problems/
       - ./repo/:/site/
     working_dir: /site/
-    environment: &site_environment
-      - MYSQL_DATABASE=dmoj
-      - MYSQL_USER=dmoj
-      - MYSQL_PASSWORD=<password>
-      - HOST=<host>
-      - DEBUG=0
-      - SECRET_KEY=<secret key>
+    env_file: [environment/mysql.env, environment/site.env]
     networks: [site, nginx, db]
     depends_on: [base, static, db, redis]
   celery:
@@ -81,7 +71,7 @@ services:
       - ./logs/:/logs/
       - ./repo/:/site/
     working_dir: /site/
-    environment: *site_environment
+    env_file: [environment/mysql.env, environment/site.env]
     networks: [site, db]
     depends_on: [base, db, redis]
   bridged:
@@ -95,7 +85,7 @@ services:
       - ./problems/:/problems/
       - ./repo/:/site/
     working_dir: /site/
-    environment: *site_environment
+    env_file: [environment/mysql.env, environment/site.env]
     networks: [site, nginx, db]
     ports:
       - 9999:9999
@@ -109,7 +99,7 @@ services:
     volumes:
       - ./repo/:/site/
     working_dir: /site
-    environment: *site_environment
+    env_file: [environment/mysql.env, environment/site.env]
     networks: [site, nginx]
   nginx:
     container_name: dmoj_nginx
