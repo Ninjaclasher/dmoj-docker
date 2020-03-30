@@ -35,7 +35,7 @@ Next, build the images:
 $ docker-compose build
 ```
 
-Start up the site, so you can perform the initial migrations.
+Start up the site, so you can perform the initial migrations:
 ```sh
 $ docker-compose up -d site
 ```
@@ -45,7 +45,7 @@ You will need to generate the schema for the database, since it is currently emp
 $ docker-compose exec site python3 manage.py migrate
 ```
 
-Finaly, the DMOJ comes with fixtures so that the initial install is not blank. They can be loaded with the following commands:
+Finally, the DMOJ comes with fixtures so that the initial install is not blank. They can be loaded with the following commands:
 ```sh
 $ docker-compose exec site python3 loaddata navbar
 $ docker-compose exec site python3 loaddata language_small
@@ -60,7 +60,7 @@ $ docker-compose up -d
 ## Notes
 
 ### Migrating
-As the DMOJ site is a Django app, you may need to migrate whenever you update. Assuming the site container is up, running the following command should suffice:
+As the DMOJ site is a Django app, you may need to migrate whenever you update. Assuming the site container is running, running the following command should suffice:
 ```sh
 $ docker-compose exec site python3 manage.py migrate
 ```
