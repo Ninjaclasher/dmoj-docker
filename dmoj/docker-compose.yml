@@ -103,7 +103,7 @@ services:
     networks: [site, nginx]
   nginx:
     container_name: dmoj_nginx
-    image: nginx:latest
+    image: nginx:alpine
     restart: always
     ports:
       - 80:80
