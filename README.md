@@ -30,9 +30,26 @@ $ mkdir dmoj/database/
 
 Configure the environment variables in the files in `dmoj/environment/`. In particular, set the MYSQL passwords in `mysql.env` and `mysql-admin.env`, and the host and secret key in `site.env`. Also, configure the `server_name` directive in `dmoj/nginx/conf.d/nginx.conf`.
 
-Finally, build the images:
+Next, build the images:
 ```sh
 $ docker-compose build
+```
+
+Start up the site, so you can perform the initial migrations.
+```sh
+$ docker-compose up -d site
+```
+
+You will need to generate the schema for the database, since it is currently empty:
+```sh
+$ docker-compose exec site python3 manage.py migrate
+```
+
+Finaly, the DMOJ comes with fixtures so that the initial install is not blank. They can be loaded with the following commands:
+```sh
+$ docker-compose exec site python3 loaddata navbar
+$ docker-compose exec site python3 loaddata language_small
+$ docker-compose exec site python3 loaddata demo
 ```
 
 ## Usage
@@ -43,17 +60,9 @@ $ docker-compose up -d
 ## Notes
 
 ### Migrating
-As the DMOJ site is a Django app, you may need to migrate whenever you update. Running the following command should suffice:
+As the DMOJ site is a Django app, you may need to migrate whenever you update. Assuming the site container is up, running the following command should suffice:
 ```sh
-$ docker-compose run site python3 manage.py migrate
-```
-
-### Loading The DMOJ's Fixtures
-The DMOJ comes with fixtures so that the initial install is not blank. They can be loaded with the following commands:
-```
-$ docker-compose run site python3 loaddata navbar
-$ docker-compose run site python3 loaddata language_small
-$ docker-compose run site python3 loaddata demo
+$ docker-compose exec site python3 manage.py migrate
 ```
 
 ### Managing Static Files
