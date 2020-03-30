@@ -276,10 +276,14 @@ LOGGING = {
 ## ======== Custom Configuration ========
 # You may add whatever django configuration you would like here.
 # Do try to keep it separate so you can quickly patch in new settings.
+
+# Uncomment if you're using HTTPS to ensure CSRF and session cookies are
+# sent only with an HTTPS connection.
+#CSRF_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True
+
 REGISTRATION_OPEN = False
 DMOJ_RATING_COLORS = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
 X_FRAME_OPTIONS = 'DENY'
 
 CELERY_BROKER_URL = 'redis://redis:6379'
