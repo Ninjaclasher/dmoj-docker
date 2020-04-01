@@ -12,20 +12,13 @@ $ git clone https://github.com/Ninjaclasher/dmoj-docker
 $ cd dmoj-docker
 $ git submodule init --recursive
 $ git submodule update
+$ cd dmoj
 ```
+From now on, it is assumed you are in the `dmoj` directory.
 
-Move the configuration files into the submodule:
+Initialize the setup by moving the configuration files into the submodule and by creating the necessary directories:
 ```sh
-$ mv config.js dmoj/repo/websocket/
-$ mv local_settings.py dmoj/repo/dmoj/
-$ mv uwsgi.ini dmoj/repo/
-```
-
-Create the necessary directories:
-```sh
-$ mkdir dmoj/logs/
-$ mkdir dmoj/problems/
-$ mkdir dmoj/database/
+$ ./scripts/initialize
 ```
 
 Configure the environment variables in the files in `dmoj/environment/`. In particular, set the MYSQL passwords in `mysql.env` and `mysql-admin.env`, and the host and secret key in `site.env`. Also, configure the `server_name` directive in `dmoj/nginx/conf.d/nginx.conf`.
@@ -42,7 +35,7 @@ $ docker-compose up -d site
 
 You will need to generate the schema for the database, since it is currently empty:
 ```sh
-$ docker-compose exec site python3 manage.py migrate
+$ ./scripts/migrate
 ```
 
 Finally, the DMOJ comes with fixtures so that the initial install is not blank. They can be loaded with the following commands:
@@ -62,7 +55,7 @@ $ docker-compose up -d
 ### Migrating
 As the DMOJ site is a Django app, you may need to migrate whenever you update. Assuming the site container is running, running the following command should suffice:
 ```sh
-$ docker-compose exec site python3 manage.py migrate
+$ ./scripts/migrate
 ```
 
 ### Managing Static Files
