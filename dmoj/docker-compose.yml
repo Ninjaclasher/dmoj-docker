@@ -55,6 +55,7 @@ services:
       - pdf:/pdf/
       - cache:/cache/
       - ./logs/:/logs/
+      - ./media/:/media/
       - ./problems/:/problems/
       - ./repo/:/site/
     working_dir: /site/
@@ -112,6 +113,7 @@ services:
       - pdf:/pdf/
       - cache:/cache/
       - ./logs/:/logs/
+      - ./media/:/media/
       - ./nginx/conf.d/:/etc/nginx/conf.d/
     networks: [nginx]
     depends_on: [site, wsevent]

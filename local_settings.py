@@ -292,3 +292,6 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379'
 DMOJ_PROBLEM_DATA_ROOT = '/problems/'
 
 DMOJ_RESOURCES = '/assets/resources/'
+
+MEDIA_ROOT = '/media/'
+MEDIA_URL = '/media/'
