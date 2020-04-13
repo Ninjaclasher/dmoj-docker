@@ -1,16 +1,18 @@
 FROM dmoj-site-base:latest
 
-# puppeteer dependencies
 RUN apt-get update && \
-    apt-get install -y \
-        libx11-xcb-dev libxcomposite1 libxcursor1 libxdamage1 libxi6 \
-        libxtst6 libnss3 libcups2 libxss1 libxrandr2 libasound2 libatk1.0-0 \
-        libatk-bridge2.0-0 libpangocairo-1.0-0 libgtk-3-0 && \
-    apt-get autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
-
-WORKDIR /node_modules/
-RUN npm install puppeteer
+    apt-get install -y unzip xvfb libxi6 libgconf-2-4 && \
+    curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add && \
+    echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get -y update && \
+    apt-get -y install google-chrome-stable && \
+    wget https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip && \
+    mv chromedriver /usr/bin/chromedriver && \
+    chmod +x /usr/bin/chromedriver && \
+    rm chromedriver_linux64.zip && \
+    rm -rf /var/lib/apt/lists/* && \
+    pip install selenium
 
 EXPOSE 8000
 

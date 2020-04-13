@@ -213,8 +213,7 @@ DMOJ_PDF_PROBLEM_CACHE = '/pdf'
 # Should be an internal location mapped to the above directory.
 DMOJ_PDF_PROBLEM_INTERNAL = 'pdf/pdfcache'
 
-NODEJS = '/usr/bin/node'
-PUPPETEER_MODULE = '/node_modules/puppeteer'
+USE_SELENIUM = True
 
 #############
 ## Mathoid ##
