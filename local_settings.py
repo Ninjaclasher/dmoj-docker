@@ -11,7 +11,7 @@ import os
 # SECURITY WARNING: keep the secret key used in production secret!
 # You may use <http://www.miniwebtool.com/django-secret-key-generator/>
 # to generate this key.
-SECRET_KEY = os.environ.get('SECRET_KEY', ' ')
+SECRET_KEY = os.environ.get('SECRET_KEY', '')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', '0') == '1'
 HOST = os.environ.get('HOST', '')
@@ -27,8 +27,8 @@ INSTALLED_APPS += ()
 # Documentation: <https://docs.djangoproject.com/en/1.11/topics/cache/>
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': 'localhost:9000',
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis:6379/1',
     }
 }
 
@@ -285,8 +285,8 @@ REGISTRATION_OPEN = False
 DMOJ_RATING_COLORS = True
 X_FRAME_OPTIONS = 'DENY'
 
-CELERY_BROKER_URL = 'redis://redis:6379'
-CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 DMOJ_PROBLEM_DATA_ROOT = '/problems/'
 

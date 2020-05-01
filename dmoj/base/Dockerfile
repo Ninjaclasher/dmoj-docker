@@ -14,7 +14,7 @@ RUN apt-get update && \
 
 RUN npm install -g sass postcss-cli autoprefixer
 RUN pip install \
-        pymysql mysqlclient websocket-client uwsgi python-memcached redis
+        pymysql mysqlclient websocket-client uwsgi django-redis redis
 
 RUN apt-get update && \
     apt-get install -y unzip xvfb libxi6 libgconf-2-4 && \
