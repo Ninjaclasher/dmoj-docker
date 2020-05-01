@@ -28,7 +28,7 @@ Next, build the images:
 $ docker-compose build
 ```
 
-Start up the site, so you can perform the initial migrations:
+Start up the site, so you can perform the initial migrations and generate the static files:
 ```sh
 $ docker-compose up -d site
 ```
@@ -36,6 +36,11 @@ $ docker-compose up -d site
 You will need to generate the schema for the database, since it is currently empty:
 ```sh
 $ ./scripts/migrate
+```
+
+You will also need to generate the static files:
+```
+$ ./scripts/copy_static
 ```
 
 Finally, the DMOJ comes with fixtures so that the initial install is not blank. They can be loaded with the following commands:
@@ -59,27 +64,17 @@ $ ./scripts/migrate
 ```
 
 ### Managing Static Files
-Static files are built in a separate image than the site. If there are any changes to the static files, you will need to rebuild that image:
-```sh
-$ docker-compose build static
+If your static files ever change, you will need to rebuild them:
 ```
-
-To update the static files in the other containers, you will need to repopulate the volume by forcefully recreating the volume. A quick way to do this is:
-```sh
-$ docker-compose stop site nginx
-$ docker-compose rm site nginx static
-$ docker volume rm dmoj_assets
-$ docker-compose up -d
+$ ./scripts/copy_static
 ```
-
-Having a separate image for static files is useful when developing, as you do not need to rebuild the static files every time. If you do not need this flexibility, feel free to combine the static image with the site image.
 
 ### Updating The Site
 Updating various sections of the site requires different images to be rebuilt.
 
 If any prerequisites were modified, you will need to rebuild most of the images:
 ```sh
-$ docker-compose up -d --build base static site celery bridged wsevent
+$ docker-compose up -d --build base site celery bridged wsevent
 ```
 If the static files are modified, read the section on [Managing Static Files](#managing-static-files).
 

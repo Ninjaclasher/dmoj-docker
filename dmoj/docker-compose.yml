@@ -35,15 +35,6 @@ services:
       dockerfile: ./base/Dockerfile
     image: dmoj-site-base
     network_mode: none
-  static:
-    build:
-       context: .
-       dockerfile: ./static/Dockerfile
-    image: dmoj-site-static
-    volumes:
-      - assets:/assets/
-    network_mode: none
-    depends_on: [base]
   site:
     build:
       context: .
@@ -61,7 +52,7 @@ services:
     working_dir: /site/
     env_file: [environment/mysql.env, environment/site.env]
     networks: [site, nginx, db]
-    depends_on: [base, static, db, redis]
+    depends_on: [base, db, redis]
   celery:
     build:
       context: .
