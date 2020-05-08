@@ -43,7 +43,7 @@ services:
     restart: unless-stopped
     volumes:
       - assets:/assets/
-      - pdf:/pdf/
+      - pdfcache:/pdfcache/
       - cache:/cache/
       - ./logs/:/logs/
       - ./media/:/media/
@@ -101,7 +101,7 @@ services:
       - 80:80
     volumes:
       - assets:/assets/
-      - pdf:/pdf/
+      - pdfcache:/pdfcache/
       - cache:/cache/
       - ./logs/:/logs/
       - ./media/:/media/
@@ -114,5 +114,5 @@ networks:
   nginx:
 volumes:
   assets:
-  pdf:
+  pdfcache:
   cache:
