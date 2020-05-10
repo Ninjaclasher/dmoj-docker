@@ -17,14 +17,14 @@ services:
     build:
       context: .
       dockerfile: ./texoid/Dockerfile
-    image: dmoj-site-texoid
+    image: ninjaclasher/dmoj-texoid
     restart: unless-stopped
     networks: [site]
   mathoid:
     build:
       context: .
       dockerfile: ./mathoid/Dockerfile
-    image: dmoj-site-mathoid
+    image: ninjaclasher/dmoj-mathoid
     restart: unless-stopped
     volumes:
       - ./mathoid/config.yaml:/node_modules/mathoid/config.yaml
@@ -33,13 +33,13 @@ services:
     build:
       context: .
       dockerfile: ./base/Dockerfile
-    image: dmoj-site-base
+    image: ninjaclasher/dmoj-base
     network_mode: none
   site:
     build:
       context: .
       dockerfile: ./site/Dockerfile
-    image: dmoj-site
+    image: ninjaclasher/dmoj-site
     restart: unless-stopped
     volumes:
       - assets:/assets/
@@ -57,7 +57,7 @@ services:
     build:
       context: .
       dockerfile: ./celery/Dockerfile
-    image: dmoj-celery
+    image: ninjaclasher/dmoj-celery
     restart: unless-stopped
     volumes:
       - ./logs/:/logs/
@@ -70,7 +70,7 @@ services:
     build:
       context: .
       dockerfile: ./bridged/Dockerfile
-    image: dmoj-bridged
+    image: ninjaclasher/dmoj-bridged
     restart: unless-stopped
     volumes:
       - ./logs/:/logs/
@@ -86,7 +86,7 @@ services:
     build:
       context: .
       dockerfile: ./wsevent/Dockerfile
-    image: dmoj-site-wsevent
+    image: ninjaclasher/dmoj-wsevent
     restart: unless-stopped
     volumes:
       - ./repo/:/site/

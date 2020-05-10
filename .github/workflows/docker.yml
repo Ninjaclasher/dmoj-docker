@@ -1,0 +1,36 @@
+name: Build Docker Images
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 1'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Initialize submodules
+        run: |
+          git submodule update --init --recursive
+      - name: Build images
+        run: docker-compose build
+        working-directory: dmoj
+      - name: Test images
+        run: |
+          ./scripts/initialize
+          docker-compose up -d
+        working-directory: dmoj
+      - name: Push images to Docker
+        if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/master'
+        run: |
+          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+          docker push ninjaclasher/dmoj-base:latest
+          docker push ninjaclasher/dmoj-texoid:latest
+          docker push ninjaclasher/dmoj-mathoid:latest
+          docker push ninjaclasher/dmoj-site:latest
+          docker push ninjaclasher/dmoj-celery:latest
+          docker push ninjaclasher/dmoj-bridged:latest
+          docker push ninjaclasher/dmoj-wsevent:latest
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
