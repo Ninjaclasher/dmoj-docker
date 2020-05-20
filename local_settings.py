@@ -1,4 +1,4 @@
-import os
+
 #####################################
 ########## Django settings ##########
 #####################################
@@ -207,13 +207,17 @@ TIMEZONE_MAP = 'http://naturalearth.springercarto.com/ne3_data/8192/textures/3_n
 
 ## PDF rendering settings.
 # Directory to cache the PDF.
-DMOJ_PDF_PROBLEM_CACHE = '/pdf'
+DMOJ_PDF_PROBLEM_CACHE = '/pdfcache'
 
 # Path to use for nginx's X-Accel-Redirect feature.
 # Should be an internal location mapped to the above directory.
-DMOJ_PDF_PROBLEM_INTERNAL = 'pdf/pdfcache'
+DMOJ_PDF_PROBLEM_INTERNAL = '/pdfcache'
 
 USE_SELENIUM = True
+
+DMOJ_USER_DATA_DOWNLOAD = True
+DMOJ_USER_DATA_CACHE = '/datacache'
+DMOJ_USER_DATA_INTERNAL = '/datacache'
 
 #############
 ## Mathoid ##
