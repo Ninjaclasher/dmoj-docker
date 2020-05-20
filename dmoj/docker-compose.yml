@@ -44,6 +44,7 @@ services:
     volumes:
       - assets:/assets/
       - pdfcache:/pdfcache/
+      - datacache:/datacache/
       - cache:/cache/
       - ./logs/:/logs/
       - ./media/:/media/
@@ -60,6 +61,7 @@ services:
     image: ninjaclasher/dmoj-celery
     restart: unless-stopped
     volumes:
+      - datacache:/datacache/
       - ./logs/:/logs/
       - ./repo/:/site/
     working_dir: /site/
@@ -102,6 +104,7 @@ services:
     volumes:
       - assets:/assets/
       - pdfcache:/pdfcache/
+      - datacache:/datacache/
       - cache:/cache/
       - ./logs/:/logs/
       - ./media/:/media/
@@ -115,4 +118,5 @@ networks:
 volumes:
   assets:
   pdfcache:
+  datacache:
   cache:
