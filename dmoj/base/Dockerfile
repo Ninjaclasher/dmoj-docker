@@ -6,14 +6,13 @@ RUN apt-get update && \
         libxml2-dev libxslt1-dev zlib1g-dev \
         mariadb-client libmariadbclient-dev \
         debconf-utils python3-pip python3-dev python3 && \
-    wget -q --no-check-certificate -O- https://bootstrap.pypa.io/get-pip.py | python3 && \
     curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g sass postcss-cli autoprefixer
-RUN pip install \
+RUN pip3 install \
         pymysql mysqlclient websocket-client uwsgi django-redis redis
 
 RUN apt-get update && \
@@ -28,7 +27,7 @@ RUN apt-get update && \
     chmod +x /usr/bin/chromedriver && \
     rm chromedriver_linux64.zip && \
     rm -rf /var/lib/apt/lists/* && \
-    pip install selenium
+    pip3 install selenium
 
 COPY repo/requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
