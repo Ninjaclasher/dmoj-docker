@@ -21,6 +21,7 @@ jobs:
           docker-compose up -d
           COMPOSE_EXEC_FLAGS="-T" ./scripts/copy_static
           COMPOSE_EXEC_FLAGS="-T" ./scripts/migrate
+          COMPOSE_EXEC_FLAGS="-T" ./scripts/manage.py loaddata language_small
         working-directory: dmoj
       - name: Push images to Docker
         if: (github.event_name == 'push' || github.event_name == 'schedule') && github.ref == 'refs/heads/master'
