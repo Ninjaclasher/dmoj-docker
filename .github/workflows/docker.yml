@@ -19,6 +19,7 @@ jobs:
         run: |
           ./scripts/initialize
           docker-compose up -d
+          sleep 10
           COMPOSE_EXEC_FLAGS="-T" ./scripts/copy_static
           COMPOSE_EXEC_FLAGS="-T" ./scripts/migrate
           COMPOSE_EXEC_FLAGS="-T" ./scripts/manage.py loaddata language_small
