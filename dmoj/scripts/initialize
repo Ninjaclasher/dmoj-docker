@@ -1,5 +1,5 @@
 #!/bin/bash
-cd `dirname $0` && cd ..
+cd $(dirname $(dirname $0)) || exit
 
 mkdir logs problems media
 
