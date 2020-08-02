@@ -259,6 +259,7 @@ LOGGING = {
     'loggers': {
         '': {
             'handlers': ['console'],
+            'level': 'DEBUG',
         },
     },
 }
