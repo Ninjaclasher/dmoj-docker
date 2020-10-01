@@ -1,4 +1,4 @@
-# DMOJ Docker
+# DMOJ Docker - AMAZING THING
 
 This repository contains the Docker files to run a clone of the [DMOJ site](https://github.com/DMOJ/online-judge). It configures some additional services, such as mathoid and texoid.
 
