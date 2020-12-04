@@ -91,8 +91,8 @@ services:
     image: ninjaclasher/dmoj-wsevent
     restart: unless-stopped
     volumes:
-      - ./repo/:/site/
-    working_dir: /site
+      - ./repo/:/app/site/
+    working_dir: /app/site
     env_file: [environment/mysql.env, environment/site.env]
     networks: [site, nginx]
   nginx:
