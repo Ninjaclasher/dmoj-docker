@@ -10,7 +10,7 @@ services:
     networks: [db]
   redis:
     container_name: dmoj_redis
-    image: redis:buster
+    image: redis:alpine
     restart: always
     networks: [site]
   texoid:
