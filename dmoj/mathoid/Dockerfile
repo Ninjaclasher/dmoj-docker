@@ -1,4 +1,4 @@
-FROM node:8.17.0
+FROM node:10.21.0
 
 RUN npm install mathoid && \
     ln -sfv /node_modules/mathoid/app.js /node_modules/app.js
