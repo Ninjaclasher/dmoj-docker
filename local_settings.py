@@ -189,15 +189,15 @@ SELECT2_CSS_URL = '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.mi
 TIMEZONE_MAP = 'http://naturalearth.springercarto.com/ne3_data/8192/textures/3_no_ice_clouds_8k.jpg'
 
 ## Camo (https://github.com/atmos/camo) usage.
-#CAMO_URL = "<URL to your camo install>"
-#CAMO_KEY = "<The CAMO_KEY environmental variable you used>"
+#DMOJ_CAMO_URL = "<URL to your camo install>"
+#DMOJ_CAMO_KEY = "<The CAMO_KEY environmental variable you used>"
 
 # Domains to exclude from being camo'd.
-#CAMO_EXCLUDE = ("https://dmoj.ml", "https://dmoj.ca")
+#DMOJ_CAMO_EXCLUDE = ("https://dmoj.ml", "https://dmoj.ca")
 
 # Set to True to use https when dealing with protocol-relative URLs.
 # See <http://www.paulirish.com/2010/the-protocol-relative-url/> for what they are.
-#CAMO_HTTPS = False
+#DMOJ_CAMO_HTTPS = False
 
 # HTTPS level. Affects <link rel='canonical'> elements generated.
 # Set to 0 to make http URLs canonical.
