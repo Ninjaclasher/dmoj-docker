@@ -112,3 +112,7 @@ server {
 ```
 
 In this case, the port that the Nginx instance in the Docker container is published to would need to be modified to `10080`.
+
+## Common Errors
+### 502 Bad Gateway
+Ensure that you also restart the Nginx container if you restart the site container as Nginx caches DNS queries. Otherwise, Nginx will try to hit the old IP, causing a 502 Bad Gateway. See [this issue](https://github.com/docker/compose/issues/3314) for more information.
