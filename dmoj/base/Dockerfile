@@ -1,11 +1,11 @@
-FROM debian:buster-slim
+FROM python:3.8-slim-buster
 
 RUN apt-get update && \
     apt-get install -y \
         git gcc g++ make curl gettext wget \
         libxml2-dev libxslt1-dev zlib1g-dev \
         mariadb-client libmariadbclient-dev \
-        libjpeg-dev debconf-utils python3-pip python3-dev python3 && \
+        libjpeg-dev debconf-utils && \
     curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
     apt-get install -y nodejs && \
     apt-get autoremove -y && \
