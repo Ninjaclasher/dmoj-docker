@@ -40,7 +40,7 @@ DATABASES = {
         'NAME': os.environ.get('MYSQL_DATABASE', ''),
         'USER': os.environ.get('MYSQL_USER', ''),
         'PASSWORD': os.environ.get('MYSQL_PASSWORD', ''),
-        'HOST': 'db',
+        'HOST': os.environ.get('MYSQL_HOST', 'db'),
         'OPTIONS': {
             'charset': 'utf8mb4',
             'sql_mode': 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION',
@@ -58,7 +58,7 @@ LANGUAGE_CODE = 'en-ca'
 DEFAULT_USER_TIME_ZONE = 'America/Toronto'
 USE_I18N = True
 USE_L10N = True
-dUSE_TZ = True
+USE_TZ = True
 
 ## django-compressor settings, for speeding up page load times by minifying CSS and JavaScript files.
 # Documentation: https://django-compressor.readthedocs.io/en/latest/
