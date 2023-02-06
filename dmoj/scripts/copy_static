@@ -7,7 +7,8 @@ docker-compose exec $COMPOSE_EXEC_FLAGS site /bin/bash -c "\
     python3 manage.py compilemessages && \
     python3 manage.py compilejsi18n && \
     cp -r resources/ /assets/ && \
-    rm resources/style.css resources/martor-description.css && \
+    rm resources/style.css resources/martor-description.css resources/select2-dmoj.css && \
+    rm resources/dark/style.css resources/dark/martor-description.css resources/dark/select2-dmoj.css && \
     rm -r sass_processed && \
     cp 502.html /assets/ && \
     cp logo.png /assets/ && \
