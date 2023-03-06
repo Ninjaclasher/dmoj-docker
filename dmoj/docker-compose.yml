@@ -20,6 +20,15 @@ services:
     image: ninjaclasher/dmoj-texoid
     restart: unless-stopped
     networks: [site]
+  pdfoid:
+    build:
+      context: .
+      dockerfile: ./pdfoid/Dockerfile
+    image: ninjaclasher/dmoj-pdfoid
+    restart: unless-stopped
+    networks: [site]
+    cap_add:
+      - SYS_ADMIN
   mathoid:
     build:
       context: .

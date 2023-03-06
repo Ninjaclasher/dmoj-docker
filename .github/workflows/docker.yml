@@ -30,6 +30,7 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
           docker push ninjaclasher/dmoj-base:latest
           docker push ninjaclasher/dmoj-texoid:latest
+          docker push ninjaclasher/dmoj-pdfoid:latest
           docker push ninjaclasher/dmoj-mathoid:latest
           docker push ninjaclasher/dmoj-site:latest
           docker push ninjaclasher/dmoj-celery:latest
