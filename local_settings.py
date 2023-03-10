@@ -230,8 +230,7 @@ MATHOID_CACHE_URL = '//{host}/mathoid/'.format(host=HOST)
 ## Pdfoid ##
 ############
 
-USE_PDFOID = True
-PDFOID_URL = 'http://pdfoid:8888'
+DMOJ_PDF_PDFOID_URL = 'http://pdfoid:8888'
 
 ############
 ## Texoid ##
