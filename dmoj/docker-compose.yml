@@ -74,6 +74,7 @@ services:
     init: true
     restart: unless-stopped
     volumes:
+      - pdfcache:/pdfcache/
       - datacache:/datacache/
       - ./repo/:/site/
     working_dir: /site/
@@ -88,6 +89,7 @@ services:
     init: true
     restart: unless-stopped
     volumes:
+      - pdfcache:/pdfcache/
       - ./problems/:/problems/
       - ./repo/:/site/
     working_dir: /site/
