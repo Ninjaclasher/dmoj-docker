@@ -5,7 +5,7 @@ RUN apt-get update && \
         git gcc g++ make curl gettext wget \
         libxml2-dev libxslt1-dev zlib1g-dev \
         mariadb-client libmariadb-dev \
-        libjpeg-dev debconf-utils && \
+        libjpeg-dev debconf-utils pkg-config && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs && \
     apt-get autoremove -y && \
