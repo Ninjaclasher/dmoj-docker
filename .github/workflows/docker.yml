@@ -13,12 +13,12 @@ jobs:
         run: |
           git submodule update --init --recursive
       - name: Build images
-        run: docker-compose build
+        run: docker compose build
         working-directory: dmoj
       - name: Test images
         run: |
           ./scripts/initialize
-          docker-compose up -d
+          docker compose up -d
           sleep 10
           COMPOSE_EXEC_FLAGS="-T" ./scripts/copy_static
           COMPOSE_EXEC_FLAGS="-T" ./scripts/migrate

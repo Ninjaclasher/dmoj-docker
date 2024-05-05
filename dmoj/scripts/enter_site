@@ -1,4 +1,4 @@
 #!/bin/bash
 cd $(dirname $(dirname $0)) || exit
 
-docker-compose exec $COMPOSE_EXEC_FLAGS site /bin/bash
+docker compose exec $COMPOSE_EXEC_FLAGS site /bin/bash

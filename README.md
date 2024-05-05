@@ -25,12 +25,12 @@ Configure the environment variables in the files in `dmoj/environment/`. In part
 
 Next, build the images:
 ```sh
-$ docker-compose build
+$ docker compose build
 ```
 
 Start up the site, so you can perform the initial migrations and generate the static files:
 ```sh
-$ docker-compose up -d site
+$ docker compose up -d site
 ```
 
 You will need to generate the schema for the database, since it is currently empty:
@@ -52,7 +52,7 @@ $ ./scripts/manage.py loaddata demo
 
 ## Usage
 ```
-$ docker-compose up -d
+$ docker compose up -d
 ```
 
 ## Notes
@@ -74,13 +74,13 @@ Updating various sections of the site requires different images to be rebuilt.
 
 If any prerequisites were modified, you will need to rebuild most of the images:
 ```sh
-$ docker-compose up -d --build base site celery bridged wsevent
+$ docker compose up -d --build base site celery bridged wsevent
 ```
 If the static files are modified, read the section on [Managing Static Files](#managing-static-files).
 
 If only the source code is modified, a restart is sufficient:
 ```sh
-$ docker-compose restart site celery bridged wsevent
+$ docker compose restart site celery bridged wsevent
 ```
 
 ### Multiple Nginx Instances
