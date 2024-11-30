@@ -32,7 +32,10 @@ Start up the site, so you can perform the initial migrations and generate the st
 ```sh
 $ docker compose up -d site
 ```
-
+First you may need to generate the static files
+```
+$ ./scripts/copy_static
+```
 You will need to generate the schema for the database, since it is currently empty:
 ```sh
 $ ./scripts/migrate
