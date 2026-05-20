@@ -15,6 +15,7 @@ docker compose up -d db
 docker compose up -d redis
 docker compose up -d site
 
+docker compose exec $COMPOSE_EXEC_FLAGS site python3 manage.py makemigrations $@
 docker compose exec $COMPOSE_EXEC_FLAGS site python3 manage.py migrate $@
 
 docker compose exec $COMPOSE_EXEC_FLAGS site /bin/bash -c "\
