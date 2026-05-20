@@ -43,7 +43,6 @@ DATABASES = {
         'HOST': os.environ.get('MYSQL_HOST', 'db'),
         'OPTIONS': {
             'charset': 'utf8mb4',
-            'sql_mode': 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION',
         },
     }
 }
@@ -54,8 +53,8 @@ DATABASES = {
 
 # Internationalization.
 # Documentation: <https://docs.djangoproject.com/en/1.11/topics/i18n/>
-LANGUAGE_CODE = 'en-ca'
-DEFAULT_USER_TIME_ZONE = 'America/Toronto'
+LANGUAGE_CODE = 'en-us'
+DEFAULT_USER_TIME_ZONE = 'America/Los_Angeles'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -108,7 +107,7 @@ STATICFILES_FINDERS += ('compressor.finders.CompressorFinder',)
 ADMINS = ()
 
 # The sender for the aforementioned emails.
-SERVER_EMAIL = 'DMOJ: Modern Online Judge <errors@dmoj.ca>'
+SERVER_EMAIL = 'Mokla Online Judge<moklaeducation@gmail.com>'
 
 
 ##################################################
@@ -133,9 +132,9 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 ############################################
 
 ## DMOJ site display settings.
-SITE_NAME = 'DMOJ'
-SITE_LONG_NAME = 'DMOJ: Modern Online Judge'
-SITE_ADMIN_EMAIL = 'admin@example.com'
+SITE_NAME = 'MOJ'
+SITE_LONG_NAME = 'Mokla Online Judge'
+SITE_ADMIN_EMAIL = 'moklaeducation@gmail.com'
 TERMS_OF_SERVICE_URL = None
 
 ## Bridge controls.
@@ -304,3 +303,5 @@ DMOJ_RESOURCES = '/assets/resources/'
 
 MEDIA_ROOT = '/media/'
 MEDIA_URL = '/media/'
+
+SILENCED_SYSTEM_CHECKS = ["models.W036"]

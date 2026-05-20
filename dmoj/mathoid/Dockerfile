@@ -1,8 +1,19 @@
-FROM node:10.21.0
+FROM node:18
 
-RUN npm install mathoid && \
-    ln -sfv /node_modules/mathoid/app.js /node_modules/app.js
+# Create app directory
+WORKDIR /app
+
+# Initialize a minimal package.json (avoids npm bug)
+RUN npm init -y
+
+# Install mathoid locally
+RUN npm install mathoid
+
+# Link entry point
+RUN ln -sfv /app/node_modules/mathoid/app.js /app/app.js
 
 EXPOSE 10044
-WORKDIR /node_modules/mathoid
-CMD /node_modules/mathoid/server.js
+
+WORKDIR /app/node_modules/mathoid
+
+CMD ["node", "server.js"]

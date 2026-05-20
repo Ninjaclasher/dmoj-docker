@@ -1,7 +1,7 @@
-version: '3.7'
+name: test-compose-moj-003
 services:
   db:
-    container_name: dmoj_mysql
+    #container_name: dmoj_mysql
     image: mariadb
     restart: always
     volumes:
@@ -9,7 +9,7 @@ services:
     env_file: [environment/mysql.env, environment/mysql-admin.env]
     networks: [db]
   redis:
-    container_name: dmoj_redis
+    #container_name: dmoj_redis
     image: redis:alpine
     restart: always
     networks: [site]
@@ -39,7 +39,7 @@ services:
     init: true
     restart: unless-stopped
     volumes:
-      - ./mathoid/config.yaml:/node_modules/mathoid/config.yaml
+      - ./mathoid/config.yaml:/app/node_modules/mathoid/config.yaml
     networks: [site]
   base:
     build:
@@ -111,7 +111,7 @@ services:
     env_file: [environment/mysql.env, environment/site.env]
     networks: [site, nginx]
   nginx:
-    container_name: dmoj_nginx
+    #container_name: dmoj_nginx
     image: nginx:alpine
     restart: always
     ports:
