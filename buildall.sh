@@ -32,3 +32,5 @@ docker compose exec $COMPOSE_EXEC_FLAGS site /bin/bash -c "\
     cp robots.txt /assets/"
 
 docker compose up -d
+
+#docker compose exec $COMPOSE_EXEC_FLAGS site python3 manage.py createsuperuser $@

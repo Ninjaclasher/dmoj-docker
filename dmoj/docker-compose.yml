@@ -1,4 +1,4 @@
-name: test-compose-moj-003
+name: prod-medocker-moj-004
 services:
   db:
     #container_name: dmoj_mysql
@@ -17,7 +17,7 @@ services:
     build:
       context: .
       dockerfile: ./texoid/Dockerfile
-    image: ninjaclasher/dmoj-texoid
+    image: moj/dmoj-texoid
     init: true
     restart: unless-stopped
     networks: [site]
@@ -25,7 +25,7 @@ services:
     build:
       context: .
       dockerfile: ./pdfoid/Dockerfile
-    image: ninjaclasher/dmoj-pdfoid
+    image: moj/dmoj-pdfoid
     init: true
     restart: unless-stopped
     networks: [site]
@@ -35,7 +35,7 @@ services:
     build:
       context: .
       dockerfile: ./mathoid/Dockerfile
-    image: ninjaclasher/dmoj-mathoid
+    image: moj/dmoj-mathoid
     init: true
     restart: unless-stopped
     volumes:
@@ -45,13 +45,13 @@ services:
     build:
       context: .
       dockerfile: ./base/Dockerfile
-    image: ninjaclasher/dmoj-base
+    image: moj/dmoj-base
     network_mode: none
   site:
     build:
       context: .
       dockerfile: ./site/Dockerfile
-    image: ninjaclasher/dmoj-site
+    image: moj/dmoj-site
     init: true
     restart: unless-stopped
     volumes:
@@ -70,7 +70,7 @@ services:
     build:
       context: .
       dockerfile: ./celery/Dockerfile
-    image: ninjaclasher/dmoj-celery
+    image: moj/dmoj-celery
     init: true
     restart: unless-stopped
     volumes:
@@ -85,7 +85,7 @@ services:
     build:
       context: .
       dockerfile: ./bridged/Dockerfile
-    image: ninjaclasher/dmoj-bridged
+    image: moj/dmoj-bridged
     init: true
     restart: unless-stopped
     volumes:
@@ -102,7 +102,7 @@ services:
     build:
       context: .
       dockerfile: ./wsevent/Dockerfile
-    image: ninjaclasher/dmoj-wsevent
+    image: moj/dmoj-wsevent
     init: true
     restart: unless-stopped
     volumes:
@@ -115,7 +115,7 @@ services:
     image: nginx:alpine
     restart: always
     ports:
-      - 80:80
+      - 443:443
     volumes:
       - assets:/assets/
       - pdfcache:/pdfcache/
@@ -123,8 +123,22 @@ services:
       - cache:/cache/
       - ./media/:/media/
       - ./nginx/conf.d/:/etc/nginx/conf.d/
-    networks: [nginx]
+      - /etc/letsencrypt/:/etc/letsencrypt:ro
+      - ./nginx/mokla-site/:/var/www/mokla-site/
+    networks: [site,nginx]
     depends_on: [site, wsevent]
+  headscale:
+    image: headscale/headscale:stable
+    container_name: headscale
+    restart: unless-stopped
+    volumes:
+      - ./headscale/volume:/var/lib/headscale
+      - ./headscale/config.yaml:/etc/headscale/config.yaml
+    ports:
+      - 8080:8080
+      - 9090:9090
+    command: ["serve"]
+    networks: [nginx]
 networks:
   site:
   db:
