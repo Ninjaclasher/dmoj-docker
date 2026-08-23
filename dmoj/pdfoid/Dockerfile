@@ -1,10 +1,13 @@
-FROM python:3.11-slim-bookworm
+FROM python:3.14-slim-trixie
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        curl gnupg git unzip xvfb libxi6 libgconf-2-4 exiftool && \
-    curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add && \
-    echo "deb [arch=amd64]  http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
+        curl gnupg git unzip xvfb libxi6 exiftool wget && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | \
+        gpg --dearmor --yes -o /etc/apt/keyrings/google-chrome.gpg && \
+    echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/google-chrome.gpg] https://dl.google.com/linux/chrome/deb/ stable main" \
+        >> /etc/apt/sources.list.d/google-chrome.list && \
     sed -i 's/^Components: main$/& contrib non-free/' /etc/apt/sources.list.d/debian.sources && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
