@@ -13,7 +13,7 @@ jobs:
         run: |
           git submodule update --init --recursive
       - name: Build images
-        run: docker compose build
+        run: docker compose build --no-cache
         working-directory: dmoj
       - name: Test images
         run: |

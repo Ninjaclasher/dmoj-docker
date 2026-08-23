@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g sass postcss-cli postcss autoprefixer
+RUN npm install -g sass@1.99.0 postcss-cli postcss autoprefixer
 RUN pip3 install \
         pymysql mysqlclient websocket-client uwsgi django-redis redis
 
